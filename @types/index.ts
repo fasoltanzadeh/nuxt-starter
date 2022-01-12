@@ -1,29 +1,30 @@
-import Efact from '~/enums/fact'
+// import Efact from '~/enums/fact'
 import EArticleType from '~/enums/article_type'
-import EContentStatus from '~/enums/content_status'
-import { UserSetting } from '~/plugins/userSetting'
+// import EContentStatus from '~/enums/content_status'
+// import { UserSetting } from '~/plugins/userSetting'
 import ArticleService from '~/services/articles'
-import AudioService from '~/services/audios'
-import AuthService from '~/services/auth'
-import DepartmentService from '~/services/departments'
-import CalendarContentService from '~/services/calendar_content'
-import NotificationService from '~/services/notifications'
-import OwnerService from '~/services/owners'
-import PadcastService from '~/services/padcasts'
-import PlaylistService from '~/services/playlists'
-import PostService from '~/services/posts'
-import ResourceService from '~/services/resources'
-import SeriesService from '~/services/series'
-import VideoService from '~/services/videos'
-import ProfileService from '~/services/profiles'
-import TitleService from '~/services/titles'
-import PositionService from '~/services/positions'
-import HighlightService from '~/services/highlights'
-import TagService from '~/services/tags'
-import CommentService from '~/services/comments'
-import UploadService from '~/services/upload'
-import ReferralCommentService from '~/services/referral_comments'
-import HomeService from '~/services/home'
+// import AudioService from '~/services/audios'
+import AuthService from '@/services/auth'
+import InterviewsService from '~/services/interviews'
+import ApplicationsService from '~/services/applications'
+// import CalendarContentService from '~/services/calendar_content'
+// import NotificationService from '~/services/notifications'
+// import OwnerService from '~/services/owners'
+// import PadcastService from '~/services/padcasts'
+// import PlaylistService from '~/services/playlists'
+// import PostService from '~/services/posts'
+// import ResourceService from '~/services/resources'
+// import SeriesService from '~/services/series'
+// import VideoService from '~/services/videos'
+// import ProfileService from '~/services/profiles'
+// import TitleService from '~/services/titles'
+// import PositionService from '~/services/positions'
+// import HighlightService from '~/services/highlights'
+// import TagService from '~/services/tags'
+// import CommentService from '~/services/comments'
+// import UploadService from '~/services/upload'
+// import ReferralCommentService from '~/services/referral_comments'
+// import HomeService from '~/services/home'
 interface IEnum {
   toSelect: { text: string; value: number }[]
 }
@@ -63,47 +64,49 @@ declare module 'vue/types/vue' {
   interface Vue {
     $auth: Auth
     $storage: Storage
-    $gtm: GTM
-    $userSetting: UserSetting
+    // $gtm: GTM
+    // $userSetting: UserSetting
   }
   interface Context {
     $auth: Auth
     $storage: Storage
-    $gtm: GTM
-    $userSetting: UserSetting
+  //   $gtm: GTM
+  //   $userSetting: UserSetting
   }
   interface NuxtAppOptions {
     $auth: Auth
     $storage: Storage
-    $gtm: GTM
-    $userSetting: UserSetting
+  //   $gtm: GTM
+  //   $userSetting: UserSetting
   }
 }
 
 declare module 'vue/types/vue' {
   interface NuxtServiceInstance {
     articles: ArticleService
-    series: SeriesService
-    departments: DepartmentService
-    owners: OwnerService
-    resources: ResourceService
-    videos: VideoService
-    playlists: PlaylistService
-    padcasts: PadcastService
-    audios: AudioService
-    notifications: NotificationService
-    auth: AuthService
-    posts: PostService
-    calendar_content: CalendarContentService
-    profiles: ProfileService
-    titles: TitleService
-    positions: PositionService
-    highlights: HighlightService
-    tags: TagService
-    comments: CommentService
-    upload: UploadService
-    referral_comments: ReferralCommentService
-    home: HomeService
+    // series: SeriesService
+    // departments: DepartmentService
+    // owners: OwnerService
+    // resources: ResourceService
+    // videos: VideoService
+    // playlists: PlaylistService
+    // padcasts: PadcastService
+    // audios: AudioService
+    // notifications: NotificationService
+    auth: AuthService,
+    interviews: InterviewsService,
+    applications: ApplicationsService,
+    // posts: PostService
+    // calendar_content: CalendarContentService
+    // profiles: ProfileService
+    // titles: TitleService
+    // positions: PositionService
+    // highlights: HighlightService
+    // tags: TagService
+    // comments: CommentService
+    // upload: UploadService
+    // referral_comments: ReferralCommentService
+    // home: HomeService
   }
   interface NuxtEnumInstance {
     role: IEnum
@@ -114,7 +117,7 @@ declare module 'vue/types/vue' {
 }
 
 declare module 'vue/types/options' {
-  interface ComponentOptions<V extends Vue> {
+  interface ComponentOptions<V> {
     auth?: string | boolean
   }
 }

@@ -14,7 +14,7 @@ export default {
   },
   pwa: {
     name: 'حقیقت را از ما بخوانید',
-    short_name: 'sipam'
+    short_name: 'Jobitta'
   },
   // loading:false,
   // loading: '~/components/loading.vue',
@@ -37,9 +37,9 @@ export default {
    */
   head: {
     // titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    title: 'Jobitta' || '',
     meta: [
-      { charset: 'utf-8' },
+      // { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
@@ -231,7 +231,7 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    rtl: true,
+    rtl: false,
     treeShake: true,
     customVariables: ['~/assets/styles/setting/_variables.scss'],
     defaultAssets: {
@@ -239,8 +239,8 @@ export default {
       font: undefined
     },
     lang: {
-      locales: { fa: require('vuetify/src/locale/fa').default },
-      current: 'fa'
+      // locales: { fa: require('vuetify/src/locale/fa').default },
+      current: 'en'
     },
     theme: {
       dark: false,
@@ -256,7 +256,7 @@ export default {
       themes: {
         light: {
           background: '#fff',
-          primary: '#058472',
+          primary: '#005AAA',
           accent: '#919CA5',
           secondary: '#13A3D1',
           info: colors.blue.base,

@@ -14,12 +14,12 @@ import { Vue, Component, Prop, Watch, Emit, Ref } from 'vue-property-decorator'
 })
 export default class ThemeChanger extends Vue {
 
-  get selectedTheme() {
-    return this.$userSetting.selectedTheme
-  }
-  set selectedTheme(selectedTheme: string) {
-    this.$userSetting.setTheme(selectedTheme)
-  }
+  // get selectedTheme() {
+  //   return this.$userSetting.selectedTheme
+  // }
+  // set selectedTheme(selectedTheme: string) {
+  //   this.$userSetting.setTheme(selectedTheme)
+  // }
 
 }
 </script>
