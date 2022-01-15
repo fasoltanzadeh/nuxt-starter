@@ -18,19 +18,26 @@
             span{
                 font-size: 12px;
                 font-weight: bold;
+                cursor: pointer;
             }
         }
         .question{
             font-size: 14;
             color: #808080;
-            span{
+            span, .nuxt-link-exact-active, .nuxt-link-active{
                 color: #005AAA;
                 font-weight: bold;
+            }
+            .span{
+                cursor: pointer;
             }
             &:not(:last-child){
                 margin-bottom: 145px;
             }
         }
+    }
+    .pointer{
+        cursor: pointer;
     }
 </style>
 <template>
@@ -64,11 +71,11 @@
             <v-btn  @click="onLogin" class="login-btn mb-4">Login</v-btn>
             <div class="question">
                 Forgot password?
-                <span @click="resetPassword">Reset Password</span>
+                <span @click="resetPassword" class="pointer">Reset Password</span>
             </div>
             <div class="question">
                 Don't have an account?
-                <span @click="gotoSignUp">Sign Up</span>
+                <nuxt-link to="/sign-up">Sign Up</nuxt-link>
             </div>
         </form>
     </v-card>
@@ -90,9 +97,7 @@ export default class LoginForm extends Vue {
         this.$emit('input', val)
     }
     selected = false
-    gotoSignUp(){
-        this.$router.push('/sign-up')
-    }
+    
     async onLogin(){
         console.log('login')
         this.$emit('submit', this.form)

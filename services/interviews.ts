@@ -29,9 +29,9 @@ export default class InterviewsService {
         return []
     }
     
-    createInterview(newInterview: any){
+    createInterview(newInterview: any, selectedCompetenciesQuestions : any[]){
         newInterview.postedAt = new Date().toUTCString()
-        this.interviews.push(newInterview)
+        // this.interviews.push(newInterview)
     }
 
     getCompetency(){
@@ -44,20 +44,46 @@ export default class InterviewsService {
         ]
     }
 
-    getRelatedQuestions(competency: any){
-        return [
-            `Describe a situation in which you led a team.`,
-            `Give an example of a time you handled conflict in the workplace.`,
-            `How do you maintain good working relationships with your colleagues?`,
-            `Tell me about a big decision you've made recently. ...`,
-            `What has been your biggest achievement to date?`
-        ]
+    getRelatedQuestions(competencies: string[]){
+        let questions: any = {}
+        for (let i = 0; i < competencies.length; i++) {
+            const element = competencies[i];
+            questions[element as string] = []                
+        }
+        for (let i = 0; i < competencies.length; i++) {
+            const element = competencies[i];
+            for (let j = 0; j < 8; j++) {
+                questions[element as string].push(element + ' q' + j)                
+            }
+        }
+        return questions
     }
 
     getInterview(){
         return {
             jobTitle: 'Product Designer',
             candidateCounts: 4, 
+        }
+    }
+
+    getCompanyInfo(id: string){
+        return {
+            companyName: 'IKEA',
+            logo: '/icons/IkeaLogo.png'
+        }
+    }
+    getInterviewInfo(id: string){
+        return {
+            introVideoUrl: '/test.mp4',
+            questionsCount : 5,
+            interviewer: 'Sara Stanly',
+            questions: [
+                '/test.mp4',
+                '/test.mp4',
+                '/test.mp4',
+                '/test.mp4',
+                '/test.mp4'
+            ]
         }
     }
 }

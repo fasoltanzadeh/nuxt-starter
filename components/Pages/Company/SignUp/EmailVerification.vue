@@ -15,6 +15,7 @@
             span{
                 color: #005AAA;
                 font-weight: bold;
+                cursor: pointer;
             }
             &:not(:last-child){
                 margin-bottom: 165px;

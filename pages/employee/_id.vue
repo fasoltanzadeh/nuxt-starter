@@ -100,9 +100,9 @@ export default class Result extends Vue {
     applicationInfo : any = {}
     applicationStatusHistory: any = {}
     async fetch(){
-        this.applicationInfo = await this.$service.applications.getApplication()
+        this.applicationInfo = await this.$service.applications.getApplication(this.$route.params.id)
         console.log(this.applicationInfo)
-        this.applicationStatusHistory = await this.$service.applications.getApplicationStatusHistory()
+        this.applicationStatusHistory = await this.$service.applications.getApplicationStatusHistory(this.$route.params.id)
     }
 
 

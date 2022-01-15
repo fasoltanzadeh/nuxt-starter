@@ -19,12 +19,13 @@
             span{
                 font-size: 12px;
                 font-weight: bold;
+                cursor: pointer;
             }
         }
         .login{
             font-size: 14;
             color: #808080;
-            span{
+            .nuxt-link-exact-active, .nuxt-link-active{
                 color: #005AAA;
                 font-weight: bold;
             }
@@ -69,7 +70,7 @@
             </div>
             <div class="login">
                 Have an account?
-                <span @click="gotoLogin">Login</span>
+                <nuxt-link to="/login">Login</nuxt-link>
             </div>
         </form>
     </v-card>
@@ -91,9 +92,6 @@ export default class SignUpForm extends Vue {
         this.$emit('input', val)
     }
 
-    gotoLogin(){
-        this.$router.push('/login')
-    }
     onSignUp(){
         this.$emit('submit', this.form)
     }

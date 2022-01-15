@@ -42,10 +42,10 @@
         <div class="d-flex justify-space-between">
             <div class="d-flex align-center">
                 <div class="logo">
-                    <img :src="interviewInfo.logo" width="80px"/>
+                    <img :src="companyInfo.logo" width="80px"/>
                 </div>
                 <div class="d-flex flex-column">
-                    <div class="company-name">{{interviewInfo.companyName}}</div>
+                    <div class="company-name">{{companyInfo.companyName}}</div>
                     <div class="interviewer">Interviewer</div>
                     <div class="interviewer-name">{{interviewInfo.interviewer}}</div>
                 </div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="d-flex justify-space-between pt-5">
-            <InterviewVideoPlayer :videoUrl="interviewInfo.videoUrl"/>
+            <InterviewVideoPlayer :videoUrl="videoUrl"/>
             <PersonalInformation 
                 v-if="state == `info`"
                 v-model="form" 
@@ -128,8 +128,10 @@ export default class Panel extends Vue {
     answers : any[] = []
     cvFile :any = null
     interviewInfo : any = {}
+    companyInfo : any = {}
     async fetch(){
-        this.interviewInfo = await this.$service.applications.getInterviewInfo();
+        this.companyInfo = await this.$service.interviews.getCompanyInfo(this.$route.params.id);
+        this.interviewInfo = await this.$service.interviews.getInterviewInfo(this.$route.params.id);
     }
 
     answered(){
@@ -147,6 +149,10 @@ export default class Panel extends Vue {
     }
     async onSubmit(){
         await this.$service.applications.apply(this.answer, this.cvFile)
+    }
+
+    get videoUrl(){
+        return this.state == `info` ? this.interviewInfo.introVideoUrl :  this.interviewInfo.questions[this.questionNumber - 1]
     }
 }
 </script>

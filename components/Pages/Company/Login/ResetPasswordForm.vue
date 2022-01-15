@@ -15,6 +15,7 @@
             span{
                 color: #005AAA;
                 font-weight: bold;
+                cursor: pointer;
             }
             &:not(:last-child){
                 margin-bottom: 165px;
@@ -58,9 +59,6 @@ export default class ResetPassword extends Vue {
 
     onSubmit(){
         this.$emit('submit', this.email)
-    }
-    gotoLogin(){
-        this.$router.push('/login')
     }
 }
 </script>

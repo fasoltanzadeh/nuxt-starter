@@ -19,14 +19,7 @@
             span{
                 font-size: 12px;
                 font-weight: bold;
-            }
-        }
-        .login{
-            font-size: 14;
-            color: #808080;
-            span{
-                color: #005AAA;
-                font-weight: bold;
+                cursor: pointer;
             }
         }
     }

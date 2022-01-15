@@ -3,15 +3,6 @@ import { NuxtAxiosInstance } from 'vrwebdesign-nuxt/modules/nuxt-axios/types'
 export default class ApplicationsService {
     constructor(public $axios: NuxtAxiosInstance) {}
     
-    getInterviewInfo(){
-        return {
-            videoUrl: '/test.mp4',
-            questionsCount : 5,
-            interviewer: 'Sara Stanly',
-            companyName: 'IKEA',
-            logo: '/icons/IkeaLogo.png'
-        }
-    }
     getLocations(){
         return [
             'location1',
@@ -36,7 +27,7 @@ export default class ApplicationsService {
 
     }
 
-    getApplication(){
+    getApplication(id: string){
         return {
             fullName: 'John Dou',
             company: 'Microsoft',
@@ -44,7 +35,7 @@ export default class ApplicationsService {
             jobTitle: 'Front End Developer'
         }
     }
-    getApplicationStatusHistory(){
+    getApplicationStatusHistory(id: string){
         return {
             submittedAt : '12/12/2021',
             reviewedAt: null,

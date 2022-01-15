@@ -43,6 +43,7 @@
                 color: #808080;
             }
         }
+        
     }
 </style>
 <template>
@@ -51,117 +52,66 @@
             <v-icon color="#000000" @click="page == 1 ? $emit('hide') : page = 1" size="20" class="mr-3">la-arrow-left</v-icon>
             New interview
         </div>
-        <div class="d-flex flex-column" v-if="page == 1">
-            <div class="desc">Enter required information</div>
-            <div class="d-flex fields-row">
-                <v-text-field
-                    label="Job type"
-                    name="jobType"
-                    data-vv-as="Job type"
-                    v-model="form.jobType"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('jobType')"
-                    class="mr-8"
-                />
-                <v-text-field
-                    label="Seniority"
-                    name="seniority"
-                    data-vv-as="Seniority"
-                    v-validate="'required'"
-                    v-model="form.seniority"
-                    :error-messages="errors.collect('seniority')"
-                />
-            </div>
-            <v-text-field
-                label="Job title"
-                name="title"
-                v-model="form.jobTitle"
-                data-vv-as="Job title"
-                v-validate="'required'"
-                class="field"
-                :error-messages="errors.collect('title')"
-            />
-            <div class="d-flex fields-row">
-                <v-text-field
-                    label="Validity time"
-                    name="validity"
-                    v-model="form.validityTime"
-                    data-vv-as="Validity time"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('validity')"
-                    class="mr-8"
-                />
-                <v-text-field
-                    label="Location"
-                    name="location"
-                    v-model="form.location"
-                    data-vv-as="Location"
-                    :error-messages="errors.collect('location')"
-                    v-validate="'required'"
-                />
-            </div>
-            <v-btn color="#005AAA" @click="nextPage" class="continue-btn">Continue</v-btn>
-        </div>
-        <div class="d-flex flex-column" v-else>
-            <v-autocomplete
-                hide-details
-                :items="competencies"
-                :loading="loading"
-                data-vv-as="Competency"
-                v-validate="'required'"
-                :error-messages="errors.collect('competency')"
-                v-model="form.competency"
-                @change="getQuestions"
-                label="Competency"
-                name="competency"
-                class="competency"
-            />
-            <div class="related-questions">
-                <div class="sub-title">Related questions</div>
-                <div v-for="question in questions" :key="question">{{question}}</div>
-            </div>
-            <v-btn color="#4DBC54" class="confirm-btn" @click="createInterview">Confirm</v-btn>
-        </div>
+        <InterviewInfoForm 
+            v-if="page == 1" 
+            v-model="form" 
+            @continue="nextPage"
+        />
+        <InterviewCompetencySelector 
+            v-else
+            :questions="competenciesQuestions"
+            :competencies="competencies"
+            :loading="loading"
+            @changeSelectedCompetencies="changeSelectedCompetencies"
+            @createInterview="createInterview"
+        />
     </v-card>
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
-
-@Component
+import InterviewCompetencySelector from '@/components/Pages/Home/InterviewCompetencySelector.vue'
+import InterviewInfoForm from '@/components/Pages/Home/InterviewInfoForm.vue'
+@Component({
+    components: {
+        InterviewCompetencySelector,
+        InterviewInfoForm
+    }
+})
 export default class CreateInterviewForm extends Vue {
     form : any = {}
     page = 1
     competencies : any[] = []
     loading = false
-    questions : any[] = []
-    createInterview(){
+    competenciesQuestions : any = {}
+    selectedCompetenciesQuestions : any = {}
+    
+    createInterview(questions: any[]){
         try{
-            this.$service.interviews.createInterview(this.form)
+            this.$service.interviews.createInterview(this.form, questions)
         }catch(error){
             console.log('CreateInterviewForm => createInterview => error')
         }
         this.$emit('hide')
     }
     async nextPage(){
-        let valid = await this.$validator.validate()
-        if (valid) {
-            this.page = this.page + 1
-            this.loading = true
-            try{
-                this.competencies = await this.$service.interviews.getCompetency()
-            }catch(error){
-                console.log('CreateInterviewForm => nextPage => error')
-            }            
-            this.loading = false
-        }
+        this.page = this.page + 1
+        this.loading = true
+        try{
+            this.competencies = await this.$service.interviews.getCompetency()
+        }catch(error){
+            console.log('CreateInterviewForm => nextPage => error')
+        }            
+        this.loading = false
     }
 
-    async getQuestions(){
+    async changeSelectedCompetencies(selectedCompetencies : string[]){
         try{
-            this.questions = await this.$service.interviews.getRelatedQuestions(this.form.competency)
+            this.competenciesQuestions = await this.$service.interviews.getRelatedQuestions(selectedCompetencies)
         }catch(error){
             console.log('CreateInterviewForm => getQuestions => error')
         }
     }
+
+
 }
 </script>
