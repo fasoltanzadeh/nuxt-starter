@@ -74,7 +74,7 @@ export default class InterviewsService {
     }
     getInterviewInfo(id: string){
         return {
-            introVideoUrl: '/test.mp4',
+            introVideoUrl: '/test3.mp4',
             questionsCount : 5,
             interviewer: 'Sara Stanly',
             questions: [

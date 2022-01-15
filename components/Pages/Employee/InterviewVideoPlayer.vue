@@ -20,9 +20,14 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Watch } from 'vue-property-decorator'
 @Component
 export default class InterviewVideoPlayer extends Vue {
     @Prop()
     readonly videoUrl! : any
+    @Watch('videoUrl')
+    test(){
+        this.$refs.interviewVideo.src = this.videoUrl
+    }
 }
 </script>

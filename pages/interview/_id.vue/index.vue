@@ -129,9 +129,11 @@ export default class Panel extends Vue {
     cvFile :any = null
     interviewInfo : any = {}
     companyInfo : any = {}
+    videoUrls: string[] = []
     async fetch(){
         this.companyInfo = await this.$service.interviews.getCompanyInfo(this.$route.params.id);
         this.interviewInfo = await this.$service.interviews.getInterviewInfo(this.$route.params.id);
+        this.videoUrls = this.interviewInfo.questions
     }
 
     answered(){
@@ -152,7 +154,7 @@ export default class Panel extends Vue {
     }
 
     get videoUrl(){
-        return this.state == `info` ? this.interviewInfo.introVideoUrl :  this.interviewInfo.questions[this.questionNumber - 1]
+        return this.state == `info` ? this.interviewInfo.introVideoUrl :  this.videoUrls[this.questionNumber - 1]
     }
 }
 </script>
