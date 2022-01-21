@@ -10,25 +10,25 @@ export default class AuthService {
   }
 
   signUp(formData: any){
-
+    console.log(' i want sign up')
+    return this.$axios.$post('/signup', formData)
   }
 
   checkEmailVerification(){
 
   }
 
-  resendEmail()
-  {
-
+  resendEmail(registrationToken: string){
+    console.log(registrationToken)
+    return this.$axios.$post('/signup/resend_email', null , {
+      headers: {
+        Authorization: 'bearer ' + registrationToken
+      }
+    })
   }
 
   login(formData: any) {
-    // let data = `username=${params.username}&password=${params.password}&grant_type=${params.grant_type}`
-    // return this.$axios.$post(`/oauth2/token`, data, {
-    //   headers: {
-    //     'Content-type': 'application/x-www-form-urlencoded',
-    //   },
-    // })
+    return this.$axios.$post('/login', formData)
   }
 
   resetPassword(data: any){

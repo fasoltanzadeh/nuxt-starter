@@ -47,10 +47,10 @@
             Didn’t recieve the email?
             <span @click="resendEmail">Resend</span>
         </div>
-        <div class="question">
+        <!-- <div class="question">
             Entered a wrong email?
             <span @click="changeEmail">Change email</span>
-        </div>
+        </div> -->
     </v-card>
 </template>
 <script lang="ts">
@@ -64,9 +64,9 @@ export default class EmailVerification extends Vue {
     onVerify(){
         this.$emit('verify')
     }
-    changeEmail(){
-        this.$emit('changeEmail')
-    }
+    // changeEmail(){
+    //     this.$emit('changeEmail')
+    // }
     resendEmail(){
         this.$emit('resendEmail')
     }

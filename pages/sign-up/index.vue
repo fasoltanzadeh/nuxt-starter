@@ -7,17 +7,16 @@
             v-model="form"
             v-if="signUpState=='completeForm'"
         />
+        <!-- <SetPasswordForm
+            v-if="signUpState=='setPassword'"
+            v-model="form"
+            @setPassword="setPassword"
+        /> -->
         <EmailVerification
             v-if="signUpState=='verifyEmail'"
             :enteredEmail="form.email"
             @verify="onVerifyEmail"
-            @changeEmail="changeEmail"
             @resendEmail="resendEmail"
-        />
-        <SetPasswordForm
-            v-if="signUpState=='setPassword'"
-            v-model="form"
-            @setPassword="setPassword"
         />
     </section>
 </template>
@@ -42,7 +41,10 @@ export default class SignupPage extends Vue {
     async onSignUp(formData: any){
         console.log('sign up')
         try{
-            await this.$service.auth.signUp(formData)
+            let result = await this.$service.auth.signUp(formData)
+            let token = result.registration_token.token
+            this.$storage.setLocalStorage('registration_token', token)
+            console.log(result)
         }catch(error){
             console.log('signup => onSignup => error')
         }
@@ -50,21 +52,17 @@ export default class SignupPage extends Vue {
     }
 
     async onVerifyEmail(){
-        try{
-            await this.$service.auth.checkEmailVerification()
-        } catch(error){
-            console.log('signup => onVerifyEmail => error')
-        }
-        this.signUpState = 'setPassword'
-    }
-
-    changeEmail(){
-        this.signUpState = 'completeForm'
+        this.$storage.removeLocalStorage('registration_token')
+        this.$router.push('/login')
+        // this.signUpState = 'setPassword'
     }
 
     async resendEmail(){
         try{
-            await this.$service.auth.resendEmail()
+            let result = await this.$service.auth.resendEmail(this.$storage.getLocalStorage('registration_token'))
+            this.$storage.removeLocalStorage('registration_token')
+            let token = result.registration_token.token
+            this.$storage.setLocalStorage('registration_token', token)
         } catch(error){
             console.log('signup => resendEmail => error')
         }

@@ -47,9 +47,9 @@
             <v-text-field 
                 placeholder="Work email address"
                 name="email"
-                data-vv-as="Email"
+                data-vv-as="email"
                 :error-messages="errors.collect('email')"
-                v-validate="'required'"
+                v-validate="'required|email'"
                 v-model="form.email"
             />
             <v-text-field 
@@ -60,19 +60,29 @@
                 v-validate="'required'"
                 type="password"
                 v-model="form.password"
+                ref="password"
             />
-            <v-btn  @click="onSignUp" class="signup-btn mb-4">Sign Up</v-btn>
-            <div class="desc">
-                By continuing, you agree to the 
-                <span>Terms of Use</span>
-                and 
-                <span>Privacy Policy</span>.
-            </div>
-            <div class="login">
-                Have an account?
-                <nuxt-link to="/login">Login</nuxt-link>
-            </div>
+            <v-text-field 
+                placeholder="Retype Password"
+                name="password-confirmation"
+                type="password"
+                v-validate="'required|confirmed:password'"
+                data-vv-as="password"
+                v-model="confirmed"
+                :error-messages="errors.collect('password-confirmation')"
+            />
+            <v-btn @click="onSignUp" class="signup-btn mb-4">Sign up</v-btn>
         </form>
+        <div class="desc">
+            By continuing, you agree to the 
+            <span>Terms of Use</span>
+            and 
+            <span>Privacy Policy</span>.
+        </div>
+        <div class="login">
+            Have an account?
+            <nuxt-link to="/login">Login</nuxt-link>
+        </div>
     </v-card>
 </template>
 <script lang="ts">
@@ -91,8 +101,9 @@ export default class SignUpForm extends Vue {
     set form(val) {
         this.$emit('input', val)
     }
-
+    confirmed = ""
     onSignUp(){
+    console.log(' i want sign up1111')
         this.$emit('submit', this.form)
     }
 }

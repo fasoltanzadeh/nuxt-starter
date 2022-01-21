@@ -36,8 +36,19 @@ export default class LoginPage extends Vue {
     form = {}
     resetPass = false
     resetSuccessful = false
-    onLogin(formData: any){
-        this.$router.push('/')
+    async onLogin(formData: any){
+        console.log('login')
+        try{
+            let result = await this.$service.auth.login(formData)
+            this.$storage.removeLocalStorage('registration_token')
+            let token = result.access_token.token
+            console.log(token)
+            await this.$storage.setLocalStorage('access_token', token)
+            console.log(result)
+            this.$router.push('/')
+        }catch(error){
+            console.log('login => onLogin => error')
+        }
     }
 
     resendEmail(){
